@@ -1,101 +1,128 @@
-import Image from "next/image";
-
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="max-w-6xl mx-auto px-6 py-16 min-h-screen font-sans">
+      {/* Header/Bio Section */}
+      <section className="mb-24 grid grid-cols-[8rem_1fr] gap-8 pt-[160px] pb-[24px]">
+        <h2 className="text-xl max-w-36">Fred</h2>
+        <p className="text-gray-800 leading-relaxed max-w-2xl text-xl">
+          Designer at Uniswap Labs bringing the world on-chain and unlocking more free and open financial system. Before crypto, worked on a wide breadth of industries including AI and spatial computing.
+        </p>
+      </section>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Work Section */}
+      <section className="mb-24 grid grid-cols-[8rem_1fr] gap-8 py-[40px]">
+        <h2 className="text-xl mb-8 max-w-36">Work</h2>
+        <div>
+        {workItems.map((item) => (
+          <div key={item.title} className="grid grid-cols-[3fr_1fr] gap-8 mb-8 py-1 max-w-2xl">
+            <div>
+              <a href={item.url} className="name-and-title">
+                <div className="font-bold">{item.title}</div>
+                <div>{item.description}</div>
+              </a>
+            </div>
+            <div className="company-and-period">
+              <div>{item.company}</div>
+              <div className="time-period">{item.period}</div>
+            </div>
+          </div>
+        ))}
         </div>
-      </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
+      </section>
+
+      {/* Thoughts Section */}
+      <section className="mb-24 grid grid-cols-[8rem_1fr] gap-8 py-[24px]">
+        <h2 className="text-xl mb-8 max-w-36">Thoughts</h2>
+        {thoughtItems.map((item) => (
+          <div key={item.title} className={`grid grid-cols-[3fr_1fr] gap-8 mb-8 py-1 max-w-2xl ${item.url === '' ? 'disabled-item' : ''}`}>
+            <div>
+              <div className="font-bold">{item.title}</div>
+              <div className="text-gray-600">{item.description}</div>
+            </div>
+            <div className="time-period">{item.year}</div>
+          </div>
+        ))}
+      </section>
+
+      {/* Links Section */}
+      <section className="mb-24 grid grid-cols-[8rem_1fr] gap-8 py-[24px]">
+        <h2 className="text-xl mb-4 max-w-36">Links</h2>
+        <div className="flex gap-2">
+          <a href="https://x.com/fredzaw" target="_blank" rel="noopener noreferrer" className="link-button">Twitter</a>
+          <a href="https://read.cv/fredzaw" target="_blank" rel="noopener noreferrer" className="link-button">Read.cv</a>
+          <a href="https://www.instagram.com/_burmaboy/" target="_blank" rel="noopener noreferrer" className="link-button">Instagram</a>
+
+        </div>
+      </section>
     </div>
   );
 }
+
+interface WorkItem {
+  title: string;
+  description: string;
+  company: string;
+  period: string;
+  url: string;
+}
+
+interface ThoughtItem {
+  title: string;
+  description: string;
+  year: string;
+}
+
+export const workItems: WorkItem[] = [
+  {
+    title: "Anyone can cook (provide liquidity to exchange markets)",
+    description: "Building an improved liquidity provision UX for investors.",
+    company: "Uniswap Labs",
+    period: "2022 - Present",
+    url: ''
+  },
+  {
+    title: "Making sense of the crypto market",
+    description: "Introducing token exploration and market analysis to our exchange.",
+    company: "Uniswap Labs",
+    period: "2022 - Present",
+    url: "#"
+  },
+  {
+    title: "Effortless token trading",
+    description: "Improving the trading experience by adding trade types, education, and removing friction.",
+    company: "Uniswap Labs",
+    period: "2022 - Present",
+    url: "#"
+  },
+  {
+    title: "Empowering creators with AR and computer vision",
+    description: "Developing TikTok Effect House from zero to one: a desktop application for effects creators.",
+    company: "TikTok",
+    period: "2021",
+    url: "#"
+  },
+  {
+    title: "Mapping the built world",
+    description: "Leading the design of an intuitive 3D capture system that transforms physical spaces into digital twins.",
+    company: "Matterport",
+    period: "2019 - 2021",
+    url: "#"
+  },
+  {
+    title: "Redefining shopping wth AR and AI",
+    description: "An innovative shopping experience for enthusiasts, incorporating AR try-ons, visual search, and chat-based AI.",
+    company: "Ebay",
+    period: "2017 - 2018",
+    url: "#"
+  },
+  // Add other work items...
+];
+
+export const thoughtItems: ThoughtItem[] = [
+  {
+    title: "Why our crypto experiment at the farmers market failed",
+    description: "Introducing token exploration and market analysis to our exchange.",
+    year: "2024"
+  },
+  // Add other thought items...
+];

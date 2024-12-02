@@ -2,20 +2,100 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Family', serif;
+  }
+
+  body {
+    font-family: 'UntitledSans', sans-serif;
+  }
+}
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Background colors */
+  --background-primary: #F9F9F9;
+  --background-secondary: #F0F0F0;
+  --background-tertiary: #EFEFEF;
+  
+  /* Text colors */
+  --text-primary: #1A1A1A;
+  --text-secondary: #4A4A4A;
+  --text-tertiary: #909090;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* Background colors */
+    --background-primary: #0A0A0A;
+    --background-secondary: #1A1A1A;
+    --background-tertiary: #333333;
+    
+    /* Text colors */
+    --text-primary: #EDEDED;
+    --text-secondary: #BABABA;
+    --text-tertiary: #A0A0A0;
   }
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
-  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text-primary);
+  background: var(--background-primary);
+}
+
+@font-face {
+  font-family: 'UntitledSans';
+  src: url('/fonts/UntitledSans-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Family';
+  src: url('/fonts/Family-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+}
+
+a {
+  text-decoration: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+  line-height: 1;
+}
+
+.time-period {
+  color: var(--text-tertiary);
+}
+
+.link-button {
+  font-size: 14px;
+  font-weight: 600;
+  border-radius: 100px;
+  line-height: 0.8;
+  border: 1px solid var(--text-primary);
+  color: var(--text-primary);
+  padding: 2px 12px;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  transition: background-color 80ms ease-in-out;
+}
+
+.link-button:hover {
+  background-color: var(--background-secondary);
+}
+
+.name-and-title, .company-and-period {
+  padding-top: 4px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  line-height: 1.2;
+}
+
+.disabled-item a {
+  opacity: 0.5;
 }
