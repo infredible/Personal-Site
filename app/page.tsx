@@ -76,9 +76,9 @@ export const workItems: WorkItem[] = [
   {
     title: "Anyone can cook (provide liquidity to exchange markets)",
     description: "Building an improved liquidity provision UX for investors.",
-    company: "Uniswap Labs",
+    company: "Uniswap Labs", 
     period: "2022 - Present",
-    url: ''
+    url: "/project-page"
   },
   {
     title: "Making sense of the crypto market",
