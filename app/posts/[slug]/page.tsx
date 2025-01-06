@@ -7,6 +7,9 @@ import { siteConfig } from '@/app/config/site'
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   try {
     const { metadata } = await import(`@/app/content/posts/${params.slug}.metadata`)
+    const ogUrl = new URL(`${process.env.NEXT_PUBLIC_APP_URL}/api/og`)
+    ogUrl.searchParams.set('title', metadata.title)
+    ogUrl.searchParams.set('date', metadata.date)
     
     return {
       title: metadata.title,
@@ -17,12 +20,19 @@ export async function generateMetadata({ params }: { params: { slug: string } })
         type: 'article',
         publishedTime: metadata.date,
         authors: [siteConfig.name],
+        images: [{
+          url: ogUrl.toString(),
+          width: 1200,
+          height: 630,
+          alt: metadata.title,
+        }],
       },
       twitter: {
         card: 'summary_large_image',
         title: metadata.title,
         description: metadata.description,
         creator: '@fredzaw',
+        images: [ogUrl.toString()],
       },
     }
   } catch {
