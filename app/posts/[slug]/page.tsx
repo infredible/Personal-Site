@@ -37,7 +37,13 @@ export async function generateStaticParams() {
   }))
 }
 
-export default async function Post({ params }: { params: { slug: string } }) {
+type Props = {
+  params: {
+    slug: string
+  }
+}
+
+export default async function PostPage({ params }: Props) {
   const { slug } = params
 
   try {
