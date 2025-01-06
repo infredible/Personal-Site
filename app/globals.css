@@ -331,3 +331,10 @@ a:visited {
     margin-bottom: 24px;
   }
 }
+
+@media (max-width: 768px) {
+  .page-content {
+    padding: 16px;
+    gap: 72px;
+  }
+}
