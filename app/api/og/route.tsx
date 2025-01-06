@@ -81,9 +81,10 @@ export async function GET(request: Request) {
         ],
       }
     )
-  } catch (e) {
-    console.error('OG Image generation error:', e)
-    return new Response(`Failed to generate image: ${e.message}`, {
+  } catch (error: unknown) {
+    console.error('OG Image generation error:', error)
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error occurred'
+    return new Response(`Failed to generate image: ${errorMessage}`, {
       status: 500,
     })
   }
