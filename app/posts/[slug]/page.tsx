@@ -74,7 +74,7 @@ export default async function PostPage({ params }: { params: { slug: string } })
         <article>
           <div className="prose dark:prose-invert max-w-none">
             <h1>{metadata.title}</h1>
-            <div className="text-sm var(--text-tertiary) mb-8">
+            <div className="text-sm mb-8 time-period">
               {new Date(metadata.date).toLocaleDateString('en-US', {
                 month: 'long',
                 day: 'numeric',

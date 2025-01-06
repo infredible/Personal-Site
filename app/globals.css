@@ -175,6 +175,11 @@ h2.section-title {
   color: var(--text-tertiary);
 }
 
+.time-period {
+  font-size: 14px;
+  color: var(--text-tertiary);
+}
+
 /* Navigation & Links
    ========================================================================== */
 a {
@@ -262,6 +267,10 @@ a:visited {
 .prose a:hover {
   text-decoration: none;
   opacity: 0.5;
+}
+
+.prose hr {
+  margin: 2rem 0;
 }
 
 /* Responsive Styles
