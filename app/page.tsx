@@ -1,52 +1,105 @@
 export default function Home() {
   return (
-    <div className="max-w-6xl mx-auto px-6 py-16 min-h-screen font-sans">
+    <div className="page-content">
       {/* Header/Bio Section */}
-      <section className="mb-24 grid grid-cols-[8rem_1fr] gap-8 pt-[160px] pb-[24px]">
-        <h2 className="text-xl max-w-36">Fred</h2>
-        <p className="text-gray-800 leading-relaxed max-w-2xl text-xl">
-          Designer at Uniswap Labs bringing the world on-chain and unlocking more free and open financial system. Before crypto, worked on a wide breadth of industries including AI and spatial computing.
+      <section className="section">
+        <h2 className="section-title">Fred</h2>
+        <p className="section-content bio">
+          Designer at Uniswap Labs bringing the world on-chain and unlocking a more free and open financial system. Before crypto, worked on a breadth of industries including AI and spatial computing.
         </p>
       </section>
 
-      {/* Work Section */}
-      <section className="mb-24 grid grid-cols-[8rem_1fr] gap-8 py-[40px]">
-        <h2 className="text-xl mb-8 max-w-36">Work</h2>
-        <div>
-        {workItems.map((item) => (
-          <div key={item.title} className="grid grid-cols-[3fr_1fr] gap-8 mb-8 py-1 max-w-2xl">
-            <div>
-              <a href={item.url} className="name-and-title">
-                <div className="font-bold">{item.title}</div>
-                <div>{item.description}</div>
-              </a>
+      {/* Thoughts Section */}
+      <section className="section">
+        <h2 className="section-title">Thoughts</h2>
+        <div className="section-content">
+
+          {/* Thought item */}
+          <div className="work-item">
+            <div className="title-and-description">
+              <div className="font-bold">Anyone can <s>cook</s> (provide liquidity to exchange markets)</div>
+              <div>Building an improved liquidity provision UX for investors.</div>
             </div>
             <div className="company-and-period">
-              <div>{item.company}</div>
-              <div className="time-period">{item.period}</div>
+              <div>Uniswap Labs</div>
+              <div className="time-period">2025</div>
             </div>
           </div>
-        ))}
+
         </div>
       </section>
 
-      {/* Thoughts Section */}
-      <section className="mb-24 grid grid-cols-[8rem_1fr] gap-8 py-[24px]">
-        <h2 className="text-xl mb-8 max-w-36">Thoughts</h2>
-        {thoughtItems.map((item) => (
-          <div key={item.title} className={`grid grid-cols-[3fr_1fr] gap-8 mb-8 py-1 max-w-2xl ${item.url === '' ? 'disabled-item' : ''}`}>
-            <div>
-              <div className="font-bold">{item.title}</div>
-              <div className="text-gray-600">{item.description}</div>
+      {/* Work Section */}
+      <section className="section">
+        <h2 className="section-title">Work</h2>
+        <div className="section-content">
+
+          {/* Work item */}
+          <div className="work-item disabled-item">
+            <div className="title-and-description">
+              <div className="font-bold">Anyone can <s>cook</s> (provide liquidity to exchange markets)</div>
+              <div>Building an improved liquidity provision UX for investors.</div>
             </div>
-            <div className="time-period">{item.year}</div>
+            <div className="company-and-period">
+              <div>Uniswap Labs</div>
+              <div className="time-period">2025</div>
+            </div>
           </div>
-        ))}
+
+          {/* Work item */}
+          <div className="work-item disabled-item">
+            <div className="title-and-description">
+              <div className="font-bold">Making sense of the crypto market</div>
+              <div>Introducing token exploration and market analysis to our exchange.</div>
+            </div>
+            <div className="company-and-period">
+              <div>Uniswap Labs</div>
+              <div className="time-period">2024</div>
+            </div>
+          </div>
+
+          {/* Work item */}
+          <div className="work-item disabled-item">
+            <div className="title-and-description">
+              <div className="font-bold">Effortless token trading</div>
+              <div>Improving the trading experience by adding trade types, education, and removing friction.</div>
+            </div>
+            <div className="company-and-period">
+              <div>Uniswap Labs</div>
+              <div className="time-period">2024</div>
+            </div>
+          </div>
+
+          {/* Work item */}
+          <a href="https://effecthouse.tiktok.com/" target="_blank" rel="noopener noreferrer" className="work-item">
+            <div className="title-and-description">
+              <div className="font-bold">Empowering creators with AR and computer vision</div>
+              <div>Developing TikTok Effect House from zero to one: a desktop application for effects creators.</div>
+            </div>
+            <div className="company-and-period">
+              <div>TikTok</div>
+              <div className="time-period">2021</div>
+            </div>
+          </a>
+
+          {/* Work item */}
+          <a href="https://coolhunting.com/tech/make-3d-digital-clones-matterport-capture/" target="_blank" rel="noopener noreferrer" className="work-item">
+            <div className="title-and-description">
+              <div className="font-bold">Mapping the built world</div>
+              <div>Leading the design of an intuitive 3D capture system that transforms physical spaces into digital twins.</div>
+            </div>
+            <div className="company-and-period">
+              <div>Matterport</div>
+              <div className="time-period">2021</div>
+            </div>
+          </a>
+
+        </div>
       </section>
 
       {/* Links Section */}
-      <section className="mb-24 grid grid-cols-[8rem_1fr] gap-8 py-[24px]">
-        <h2 className="text-xl mb-4 max-w-36">Links</h2>
+      <section className="section">
+        <h2 className="section-title"></h2>
         <div className="flex gap-2">
           <a href="https://x.com/fredzaw" target="_blank" rel="noopener noreferrer" className="link-button">Twitter</a>
           <a href="https://read.cv/fredzaw" target="_blank" rel="noopener noreferrer" className="link-button">Read.cv</a>

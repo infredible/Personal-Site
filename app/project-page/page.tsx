@@ -3,13 +3,13 @@ export default function ProjectPage() {
     <div className="max-w-6xl mx-auto px-6 py-16 min-h-screen font-sans">
       {/* Navigation */}
       <nav className="flex justify-between items-center mb-12">
-        <a href="/" className="text-gray-600 hover:text-gray-900 flex items-center gap-2">
+        <Link href="/" className="text-gray-600 hover:text-gray-900 flex items-center gap-2">
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
             <path d="M15.8333 10H4.16666M4.16666 10L9.16666 15M4.16666 10L9.16666 5" 
               stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
           </svg>
           Home
-        </a>
+        </Link>
         <div className="flex gap-4">
           <button className="text-gray-600 hover:text-gray-900">
             <svg width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
