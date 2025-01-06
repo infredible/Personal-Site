@@ -3,7 +3,6 @@ import { notFound } from 'next/navigation'
 import { getAllPosts } from '@/app/lib/posts'
 import Link from 'next/link'
 import { siteConfig } from '@/app/config/site'
-import { PageProps } from 'next'
 
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   try {
@@ -38,13 +37,7 @@ export async function generateStaticParams() {
   }))
 }
 
-type Props = PageProps<{
-  params: {
-    slug: string
-  }
-}>
-
-export default async function PostPage({ params }: Props) {
+export default async function PostPage({ params }: { params: { slug: string } }) {
   const { slug } = params
 
   try {
