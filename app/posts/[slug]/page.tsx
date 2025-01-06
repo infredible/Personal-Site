@@ -7,10 +7,20 @@ import { siteConfig } from '@/app/config/site'
 export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
   try {
     const { metadata } = await import(`@/app/content/posts/${params.slug}.metadata`)
-    const ogUrl = new URL(`${process.env.NEXT_PUBLIC_APP_URL}/api/og`)
+    
+    // Ensure we have a base URL
+    const baseUrl = process.env.NEXT_PUBLIC_APP_URL
+    if (!baseUrl) {
+      throw new Error('NEXT_PUBLIC_APP_URL is not set')
+    }
+
+    const ogUrl = new URL('/api/og', baseUrl)
     ogUrl.searchParams.set('title', metadata.title)
     ogUrl.searchParams.set('date', metadata.date)
     
+    const ogImage = ogUrl.toString()
+    console.log('Generated OG Image URL:', ogImage) // Debug log
+
     return {
       title: metadata.title,
       description: metadata.description,
@@ -21,7 +31,7 @@ export async function generateMetadata({ params }: { params: { slug: string } })
         publishedTime: metadata.date,
         authors: [siteConfig.name],
         images: [{
-          url: ogUrl.toString(),
+          url: ogImage,
           width: 1200,
           height: 630,
           alt: metadata.title,
@@ -32,10 +42,11 @@ export async function generateMetadata({ params }: { params: { slug: string } })
         title: metadata.title,
         description: metadata.description,
         creator: '@fredzaw',
-        images: [ogUrl.toString()],
+        images: [ogImage],
       },
     }
-  } catch {
+  } catch (error) {
+    console.error('Metadata generation error:', error)
     return {}
   }
 }

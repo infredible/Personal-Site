@@ -9,6 +9,15 @@ export async function GET(request: Request) {
     const title = searchParams.get('title')
     const date = searchParams.get('date')
 
+    if (!title) {
+      throw new Error('Title is required')
+    }
+
+    // Add some basic font loading
+    const interBold = await fetch(
+      new URL('https://fonts.googleapis.com/css2?family=Inter:wght@700&display=swap')
+    ).then((res) => res.arrayBuffer())
+
     return new ImageResponse(
       (
         <div
@@ -21,6 +30,7 @@ export async function GET(request: Request) {
             justifyContent: 'center',
             backgroundColor: '#1a1a1a',
             padding: '40px 80px',
+            fontFamily: 'Inter',
           }}
         >
           <div
@@ -62,10 +72,18 @@ export async function GET(request: Request) {
       {
         width: 1200,
         height: 630,
+        fonts: [
+          {
+            name: 'Inter',
+            data: interBold,
+            weight: 700,
+          },
+        ],
       }
     )
   } catch (e) {
-    return new Response(`Failed to generate image`, {
+    console.error('OG Image generation error:', e)
+    return new Response(`Failed to generate image: ${e.message}`, {
       status: 500,
     })
   }
