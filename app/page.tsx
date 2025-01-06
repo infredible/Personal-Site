@@ -16,7 +16,7 @@ export default async function Home() {
       <section className="section">
         <h2 className="section-title">Fred</h2>
         <p className="section-content bio">
-          Designer at Uniswap Labs bringing the world on-chain and unlocking a more free and open financial system. Before crypto, worked on a breadth of industries including AI and spatial computing.
+          Designer at Uniswap Labs unlocking a more free and open financial system. Before crypto, worked on a breadth of industries including AI and spatial computing.
         </p>
       </section>
 
@@ -32,7 +32,7 @@ export default async function Home() {
             >
               <div className="title-and-description">
                 <div className="font-bold">{post.title}</div>
-                <div>{post.description}</div>
+                <div className="content-description">{post.description}</div>
               </div>
               <div className="company-and-period">
                 <div className="time-period">
@@ -56,7 +56,7 @@ export default async function Home() {
           <div className="work-item disabled-item">
             <div className="title-and-description">
               <div className="font-bold">Anyone can <s>cook</s> (provide liquidity to exchange markets)</div>
-              <div>Building an improved liquidity provision UX for investors.</div>
+              <div className="content-description">Building an improved liquidity provision UX for investors.</div>
             </div>
             <div className="company-and-period">
               <div className="company">Uniswap Labs</div>
@@ -68,7 +68,7 @@ export default async function Home() {
           <div className="work-item disabled-item">
             <div className="title-and-description">
               <div className="font-bold">Making sense of the crypto market</div>
-              <div>Introducing token exploration and market analysis to our exchange.</div>
+              <div className="content-description">Introducing token exploration and market analysis to our exchange.</div>
             </div>
             <div className="company-and-period">
               <div className="company">Uniswap Labs</div>
@@ -80,7 +80,7 @@ export default async function Home() {
           <div className="work-item disabled-item">
             <div className="title-and-description">
               <div className="font-bold">Effortless token trading</div>
-              <div>Improving the trading experience by adding trade types, education, and removing friction.</div>
+              <div className="content-description">Improving the trading experience by adding trade types, education, and removing friction.</div>
             </div>
             <div className="company-and-period">
               <div className="company">Uniswap Labs</div>
@@ -92,7 +92,7 @@ export default async function Home() {
           <a href="https://effecthouse.tiktok.com/" target="_blank" rel="noopener noreferrer" className="work-item">
             <div className="title-and-description">
               <div className="font-bold">Empowering creators with AR and computer vision</div>
-              <div>Developing TikTok Effect House from zero to one: a desktop application for effects creators.</div>
+              <div className="content-description">Developing TikTok Effect House from zero to one: a desktop application for effects creators.</div>
             </div>
             <div className="company-and-period">
               <div className="company">TikTok</div>
@@ -104,7 +104,7 @@ export default async function Home() {
           <a href="https://coolhunting.com/tech/make-3d-digital-clones-matterport-capture/" target="_blank" rel="noopener noreferrer" className="work-item">
             <div className="title-and-description">
               <div className="font-bold">Mapping the built world</div>
-              <div>Leading the design of an intuitive 3D capture system that transforms physical spaces into digital twins.</div>
+              <div className="content-description">Leading the design of an intuitive 3D capture system that transforms physical spaces into digital twins.</div>
             </div>
             <div className="company-and-period">
               <div className="company">Matterport</div>
@@ -118,7 +118,7 @@ export default async function Home() {
       {/* Links Section */}
       <section className="section">
         <h2 className="section-title"></h2>
-        <div className="flex gap-2">
+        <div className="button-group">
           <a href="https://x.com/fredzaw" target="_blank" rel="noopener noreferrer" className="link-button">Twitter</a>
           <a href="https://read.cv/fredzaw" target="_blank" rel="noopener noreferrer" className="link-button">Read.cv</a>
           <a href="https://www.instagram.com/_burmaboy/" target="_blank" rel="noopener noreferrer" className="link-button">Instagram</a>
