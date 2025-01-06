@@ -17,12 +17,11 @@ export default function Home() {
           {/* Thought item */}
           <div className="work-item">
             <div className="title-and-description">
-              <div className="font-bold">Anyone can <s>cook</s> (provide liquidity to exchange markets)</div>
-              <div>Building an improved liquidity provision UX for investors.</div>
+              <div className="font-bold">2025 Predictions</div>
+              <div>Random stuff I think will happen in the next year.</div>
             </div>
             <div className="company-and-period">
-              <div>Uniswap Labs</div>
-              <div className="time-period">2025</div>
+              <div className="time-period">Jan 2025</div>
             </div>
           </div>
 
@@ -35,7 +34,7 @@ export default function Home() {
         <div className="section-content">
 
           {/* Work item */}
-          <div className="work-item disabled-item">
+          <div className="work-item">
             <div className="title-and-description">
               <div className="font-bold">Anyone can <s>cook</s> (provide liquidity to exchange markets)</div>
               <div>Building an improved liquidity provision UX for investors.</div>
