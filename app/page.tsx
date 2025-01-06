@@ -1,4 +1,11 @@
+import { Metadata } from 'next'
+import { siteConfig } from './config/site'
 import { getAllPosts } from './lib/posts'
+
+export const metadata: Metadata = {
+  title: siteConfig.title,
+  description: siteConfig.description,
+}
 
 export default async function Home() {
   const posts = await getAllPosts()

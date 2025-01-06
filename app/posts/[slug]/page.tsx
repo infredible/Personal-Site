@@ -1,6 +1,34 @@
+import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import { getAllPosts } from '@/app/lib/posts'
 import Link from 'next/link'
+import { siteConfig } from '@/app/config/site'
+
+export async function generateMetadata({ params }: { params: { slug: string } }): Promise<Metadata> {
+  try {
+    const { metadata } = await import(`@/app/content/posts/${params.slug}.metadata`)
+    
+    return {
+      title: metadata.title,
+      description: metadata.description,
+      openGraph: {
+        title: metadata.title,
+        description: metadata.description,
+        type: 'article',
+        publishedTime: metadata.date,
+        authors: [siteConfig.name],
+      },
+      twitter: {
+        card: 'summary_large_image',
+        title: metadata.title,
+        description: metadata.description,
+        creator: '@fredzaw',
+      },
+    }
+  } catch {
+    return {}
+  }
+}
 
 export async function generateStaticParams() {
   const posts = await getAllPosts()

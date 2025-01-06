@@ -33,9 +33,9 @@
 @media (prefers-color-scheme: dark) {
   :root {
     /* Background colors */
-    --background-primary: #0C0B0A;
-    --background-secondary: #1C1B1A;
-    --background-tertiary: #363534;
+    --background-primary: #141312;
+    --background-secondary: #242322;
+    --background-tertiary: #403E3D;
     
     /* Text colors */
     --text-primary: #F0EDED;
