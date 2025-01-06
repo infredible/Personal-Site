@@ -33,14 +33,14 @@
 @media (prefers-color-scheme: dark) {
   :root {
     /* Background colors */
-    --background-primary: #0A0A0A;
-    --background-secondary: #1A1A1A;
-    --background-tertiary: #333333;
+    --background-primary: #0C0B0A;
+    --background-secondary: #1C1B1A;
+    --background-tertiary: #363534;
     
     /* Text colors */
-    --text-primary: #EDEDED;
-    --text-secondary: #BABABA;
-    --text-tertiary: #A0A0A0;
+    --text-primary: #F0EDED;
+    --text-secondary: #C0BABA;
+    --text-tertiary: #A8A0A0;
   }
 }
 
@@ -167,6 +167,7 @@ a {
   text-decoration: none;
   margin-bottom: 0;
   padding-bottom: 0;
+  transition: all 80ms ease-in-out;
 }
 
 .back-link {
@@ -217,11 +218,12 @@ a {
   font-size: 1.8rem;
   line-height: 1.2;
   margin-top: 2rem;
-  margin-bottom: 1rem;
+  margin-bottom: 1.4rem;
   font-weight: bold;
 }
 
 .prose p {
+  font-size: 1.1rem;
   margin-bottom: 1.5rem;
   line-height: 1.6;
 }
@@ -229,6 +231,7 @@ a {
 .prose a {
   text-decoration: underline;
   transition: all 80ms ease-in-out;
+  color: var(--text-primary);
 }
 
 .prose a:hover {
