@@ -72,7 +72,6 @@ body {
 }
 
 .page-content {
-  width: 100%;
   display: flex;
   flex-direction: column;
   gap: 120px;
@@ -135,6 +134,7 @@ body {
   font-size: 22px;
   line-height: 29px;
   margin: 0;
+  max-width: 560px;
 }
 
 h2.section-title {
