@@ -169,7 +169,7 @@ h2.section-title {
 .company-and-period {
   display: flex;
   flex-direction: column;
-  gap: 9px;
+  gap: 8px;
   width: 200px;
   text-align: left;
   color: var(--text-tertiary);
@@ -307,7 +307,6 @@ a:visited {
 
   .prose h1 {
     font-size: 2rem;
-    margin-bottom: 0.5rem;
     line-height: 1.2;
   }
 
