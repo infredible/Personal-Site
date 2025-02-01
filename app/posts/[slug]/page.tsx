@@ -67,20 +67,23 @@ export default async function PostPage({ params }: { params: { slug: string } })
 
     return (
       <div className="page-content blog-content">
-        <Link href="/" className="back-link">
+        <div className="back-link">
+        <Link href="/">
           ← Back
         </Link>
+        </div>
+
         
         <article>
           <div className="prose dark:prose-invert max-w-none">
-            <h1>{metadata.title}</h1>
-            <div className="text-sm mb-8 time-period">
+          <div className="prose time-period">
               {new Date(metadata.date).toLocaleDateString('en-US', {
                 month: 'long',
                 day: 'numeric',
                 year: 'numeric'
               })}
             </div>
+            <h1>{metadata.title}</h1>
             <Content.default />
           </div>
         </article>

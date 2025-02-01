@@ -29,22 +29,30 @@
   --background-tertiary: #EFEFEF;
   
   /* Text colors */
-  --text-primary: #1A1A1A;
-  --text-secondary: #4A4A4A;
-  --text-tertiary: #909090;
+  --text-primary: #111;
+  --text-secondary: #555;
+  --text-tertiary: #999;
+
+  /* Borders colors */
+  --border-primary: #e5e5e5;
+  --border-secondary: #f2f2f2;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     /* Background colors */
-    --background-primary: #141312;
-    --background-secondary: #242322;
+    --background-primary: #222;
+    --background-secondary: #383838;
     --background-tertiary: #403E3D;
     
     /* Text colors */
-    --text-primary: #F0EDED;
-    --text-secondary: #C0BABA;
-    --text-tertiary: #555556;
+    --text-primary: #eee;
+    --text-secondary: #bbb;
+    --text-tertiary: #888;
+
+    /* Borders colors */
+    --border-primary: #333;
+    --border-secondary: #333;
   }
 }
 
@@ -62,6 +70,14 @@
   src: url('/fonts/Family-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
+}
+
+a {
+  border-bottom: 1px solid transparent;
+}
+
+a:hover {
+  border-bottom: 1px solid;
 }
 
 /* Layout & Page Structure
@@ -132,7 +148,7 @@ body {
 
 .section-content.bio {
   font-size: 22px;
-  line-height: 29px;
+  line-height: 2rem;
   margin: 0;
   max-width: 560px;
 }
@@ -205,25 +221,29 @@ a:visited {
   color: var(--text-primary);
 }
 
-.link-button {
+.link-button, .link-button:visited {
   font-size: 14px;
-  font-weight: 600;
+  font-weight: 500;
   border-radius: 100px;
   line-height: 0.8;
-  border: 1px solid var(--text-primary);
-  color: var(--text-primary);
+  letter-spacing: 0.02em;
+  background-color: var(--background-secondary);
+  color: var(--text-secondary);
   padding: 2px 12px;
   text-decoration: none;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   height: 32px;
-  transition: background-color 80ms ease-in-out;
+  transition: opacity 80ms ease-in-out;
 }
 
 .link-button:hover {
   background-color: var(--background-secondary);
+  opacity: 0.8;
+  border: none;
 }
+
 
 .button-group {
   display: flex;
@@ -239,7 +259,7 @@ a:visited {
 
 .prose h1 {
   font-size: 2.5rem;
-  margin-bottom: 1rem;
+  margin: 1rem 0;
   font-weight: bold;
 }
 
@@ -269,8 +289,18 @@ a:visited {
 }
 
 .prose hr {
-  margin: 2rem 0;
-  border: 0.5px solid var(--text-tertiary);
+  margin: 1.8rem 0;
+  border: 0.5px solid var(--border-secondary);
+}
+
+.prose .time-period {
+  color: var(--text-tertiary);
+  padding: 0;
+  font-size: .9rem;
+}
+
+.back-link {
+  margin-bottom: 8px;
 }
 
 /* Responsive Styles
@@ -300,7 +330,7 @@ a:visited {
     gap: 12px;
   }
 
-  .prose {
+  .prose, .back-link {
     max-width: 100%;
     padding: 0 1rem;
   }
@@ -327,7 +357,7 @@ a:visited {
   }
 
   .back-link {
-    margin-bottom: 24px;
+    margin-bottom: 8px;
   }
 }
 
