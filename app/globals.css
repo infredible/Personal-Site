@@ -154,10 +154,13 @@ a:hover {
   padding: 80px 80px 24px 80px;
   opacity: 0;
   animation: pageLoad 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+  max-width: 880px;
+  margin: 0 auto;
 }
 
 .page-content.blog-content {
   gap: 12px;
+  max-width: 680px;
 }
 
 .content-description {
@@ -271,7 +274,7 @@ a:hover {
 }
 
 .prose p {
-  font-size: 1.1rem;
+  font-size: 1rem;
   margin-bottom: 1.5rem;
   line-height: 1.6;
 }
