@@ -1,6 +1,8 @@
 import { Metadata } from 'next'
 import { siteConfig } from './config/site'
 import './globals.css'
+import { Providers } from './providers'
+import { ThemeToggle } from './components/theme-toggle'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -55,7 +57,12 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head />
-      <body>{children}</body>
+      <body>
+        <Providers>
+          {children}
+          <ThemeToggle />
+        </Providers>
+      </body>
     </html>
   )
 }
