@@ -163,7 +163,7 @@ a:hover {
 
 .page-content.blog-content {
   gap: 12px;
-  max-width: 680px;
+  max-width: 600px;
 }
 
 .content-description {
@@ -442,6 +442,7 @@ a:hover {
   -webkit-tap-highlight-color: rgba(0,0,0,0);
   user-select: none;
   letter-spacing: 0.02em;
+  cursor: pointer;
 }
 
 .segmented-control .segment:hover:not(.active) {
