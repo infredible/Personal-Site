@@ -107,7 +107,7 @@ a:hover {
   font-size: 14px;
   color: var(--text-tertiary);
   transition: color 80ms ease-in-out;
-  margin-bottom: 8px;
+  margin-bottom: 40px;
 }
 
 .back-link:hover {
@@ -142,7 +142,7 @@ a:hover {
 .button-group {
   display: flex;
   flex-direction: row;
-  gap: 8px;
+  gap: 12px;
 }
 
 /* Layout & Page Structure
@@ -196,10 +196,10 @@ a:hover {
 }
 
 .section-content.bio {
-  font-size: 22px;
-  line-height: 2rem;
+  font-size: 18px;
+  line-height: 1.8rem;
   margin: 0;
-  max-width: 560px;
+  max-width: 480px;
 }
 
 /* Work Items
@@ -246,7 +246,7 @@ a:hover {
 /* Blog Post Styles
    ========================================================================== */
 .prose {
-  max-width: 680px;
+  max-width: 600px;
   position: relative;
 }
 
@@ -267,7 +267,7 @@ a:hover {
 
 .prose h2 {
   font-size: 1.8rem;
-  line-height: 1.2;
+  line-height: 1.3;
   margin-top: 2rem;
   margin-bottom: 1.4rem;
   font-weight: bold;
@@ -276,7 +276,7 @@ a:hover {
 .prose p {
   font-size: 1rem;
   margin-bottom: 1.5rem;
-  line-height: 1.6;
+  line-height: 1.8;
 }
 
 .prose a {
@@ -291,7 +291,7 @@ a:hover {
 }
 
 .prose hr {
-  margin: 1.8rem 0;
+  margin: 2.8rem 0;
   border: 1px solid var(--border-secondary);
 }
 
@@ -349,7 +349,7 @@ a:hover {
 
   .prose h1 {
     font-size: 2rem;
-    line-height: 1.2;
+    line-height: 1;
   }
 
   .prose h2 {
