@@ -15,7 +15,7 @@ export default async function Home() {
       {/* Header/Bio Section */}
       <section className="section">
         <h2 className="section-title">Fred</h2>
-        <p className="section-content bio">
+        <p>
           Designer at Uniswap Labs unlocking a more free and open financial system. Before crypto, worked on a breadth of industries including AI and spatial computing.
         </p>
       </section>
@@ -31,11 +31,11 @@ export default async function Home() {
               className="work-item"
             >
               <div className="title-and-description">
-                <div className="font-bold">{post.title}</div>
-                <div className="content-description">{post.description}</div>
+                <h3>{post.title}</h3>
+                <p>{post.description}</p>
               </div>
               <div className="company-and-period">
-                <div className="time-period">
+                <div className="text-sm">
                   {new Date(post.date).toLocaleDateString('en-US', {
                     month: 'short',
                     year: 'numeric'
@@ -55,60 +55,60 @@ export default async function Home() {
           {/* Work item */}
           <div className="work-item disabled-item">
             <div className="title-and-description">
-              <div className="font-bold">Anyone can <s>cook</s> (provide liquidity to exchange markets)</div>
-              <div className="content-description">Building an improved liquidity provision UX for investors.</div>
+              <h3>Anyone can <s>cook</s> (provide liquidity to exchange markets)</h3>
+              <p>Building an improved liquidity provision UX for investors.</p>
             </div>
-            <div className="company-and-period">
-              <div className="company">Uniswap Labs</div>
-              <div className="time-period">2025</div>
-            </div>
-          </div>
-
-          {/* Work item */}
-          <div className="work-item disabled-item">
-            <div className="title-and-description">
-              <div className="font-bold">Making sense of the crypto market</div>
-              <div className="content-description">Introducing token exploration and market analysis to our exchange.</div>
-            </div>
-            <div className="company-and-period">
-              <div className="company">Uniswap Labs</div>
-              <div className="time-period">2024</div>
+            <div className="company-and-period text-sm">
+              <div>Uniswap Labs</div>
+              <div>2025</div>
             </div>
           </div>
 
           {/* Work item */}
           <div className="work-item disabled-item">
             <div className="title-and-description">
-              <div className="font-bold">Effortless token trading</div>
-              <div className="content-description">Improving the trading experience by adding trade types, education, and removing friction.</div>
+              <h3>Making sense of the crypto market</h3>
+              <p>Introducing token exploration and market analysis to our exchange.</p>
             </div>
-            <div className="company-and-period">
-              <div className="company">Uniswap Labs</div>
-              <div className="time-period">2024</div>
+            <div className="company-and-period text-sm">
+              <div>Uniswap Labs</div>
+              <div>2024</div>
+            </div>
+          </div>
+
+          {/* Work item */}
+          <div className="work-item disabled-item">
+            <div className="title-and-description">
+              <h3>Effortless token trading</h3>
+              <p>Improving the trading experience by adding trade types, education, and removing friction.</p>
+            </div>
+            <div className="company-and-period text-sm">
+              <div>Uniswap Labs</div>
+              <div>2024</div>
             </div>
           </div>
 
           {/* Work item */}
           <a href="https://effecthouse.tiktok.com/" target="_blank" rel="noopener noreferrer" className="work-item">
             <div className="title-and-description">
-              <div className="font-bold">Empowering creators with AR and computer vision</div>
-              <div className="content-description">Developing TikTok Effect House from zero to one: a desktop application for effects creators.</div>
+              <h3>Empowering creators with AR and computer vision</h3>
+              <p>Developing TikTok Effect House from zero to one: a desktop application for effects creators.</p>
             </div>
-            <div className="company-and-period">
-              <div className="company">TikTok</div>
-              <div className="time-period">2021</div>
+            <div className="company-and-period text-sm">
+              <div>TikTok</div>
+              <div>2021</div>
             </div>
           </a>
 
           {/* Work item */}
           <a href="https://coolhunting.com/tech/make-3d-digital-clones-matterport-capture/" target="_blank" rel="noopener noreferrer" className="work-item">
             <div className="title-and-description">
-              <div className="font-bold">Mapping the built world</div>
-              <div className="content-description">Leading the design of an intuitive 3D capture system that transforms physical spaces into digital twins.</div>
+              <h3>Mapping the built world</h3>
+              <p>Leading the design of an intuitive 3D capture system that transforms physical spaces into digital twins.</p>
             </div>
-            <div className="company-and-period">
-              <div className="company">Matterport</div>
-              <div className="time-period">2021</div>
+            <div className="company-and-period text-sm">
+              <div>Matterport</div>
+              <div>2021</div>
             </div>
           </a>
 
@@ -117,11 +117,11 @@ export default async function Home() {
 
       {/* Links Section */}
       <section className="section">
-        <h2 className="section-title"></h2>
+        <h2 className="section-title">Elsewhere</h2>
         <div className="button-group">
-          <a href="https://x.com/fredzaw" target="_blank" rel="noopener noreferrer" className="link-button">Twitter</a>
-          <a href="https://read.cv/fredzaw" target="_blank" rel="noopener noreferrer" className="link-button">Read.cv</a>
-          <a href="https://www.instagram.com/_burmaboy/" target="_blank" rel="noopener noreferrer" className="link-button">Instagram</a>
+          <a href="https://x.com/fredzaw" target="_blank" rel="noopener noreferrer">Twitter</a>
+          <a href="https://read.cv/fredzaw" target="_blank" rel="noopener noreferrer">Read.cv</a>
+          <a href="https://www.instagram.com/_burmaboy/" target="_blank" rel="noopener noreferrer">Instagram</a>
 
         </div>
       </section>
