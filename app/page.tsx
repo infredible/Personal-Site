@@ -1,6 +1,7 @@
 import { Metadata } from 'next'
 import { siteConfig } from './config/site'
 import { getAllPosts } from './lib/posts'
+import { ArrowUpRight } from 'lucide-react'
 
 export const metadata: Metadata = {
   title: siteConfig.title,
@@ -119,10 +120,9 @@ export default async function Home() {
       <section className="section">
         <h2 className="section-title">Elsewhere</h2>
         <div className="button-group">
-          <a href="https://x.com/fredzaw" target="_blank" rel="noopener noreferrer">Twitter</a>
-          <a href="https://read.cv/fredzaw" target="_blank" rel="noopener noreferrer">Read.cv</a>
-          <a href="https://www.instagram.com/_burmaboy/" target="_blank" rel="noopener noreferrer">Instagram</a>
-
+          <a href="https://x.com/fredzaw" target="_blank" rel="noopener noreferrer">Twitter <ArrowUpRight size={14} /></a>
+          <a href="https://read.cv/fredzaw" target="_blank" rel="noopener noreferrer">Read.cv <ArrowUpRight size={14} /></a>
+          <a href="https://www.instagram.com/_burmaboy/" target="_blank" rel="noopener noreferrer">Instagram <ArrowUpRight size={14} /></a>
         </div>
       </section>
     </div>
