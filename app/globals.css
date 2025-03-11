@@ -165,13 +165,12 @@ a:hover {
 .page-content {
   display: flex;
   flex-direction: column;
-  gap: 120px;
-  padding: 80px 80px 24px 80px;
+  gap: 100px;
+  padding: 100px 80px 140px 80px;
   opacity: 0;
   animation: pageLoad 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   max-width: 520px;
   margin: 0 auto;
-  margin-bottom: 200px;
 }
 
 .page-content.blog-content {
