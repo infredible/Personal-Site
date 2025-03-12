@@ -1,0 +1,17 @@
+---
+description: 
+globs: 
+---
+
+# Project rules
+
+## Environment
+- Project: `react`
+- Framework: `tailwindcss`
+- Markdown support: `next/mdx`
+
+## App architecture and folder structure
+- To keep things simple, all styling should exist in [globals.css](mdc:app/globals.css)
+- Blog posts use app/posts/[slug]/page.tsx
+- Content for blog posts are written in mdx markdown in app/content/posts
+- Reused custom components should be defined in app/components
