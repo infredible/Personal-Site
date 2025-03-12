@@ -3,6 +3,8 @@ import { siteConfig } from './config/site'
 import './globals.css'
 import { Providers } from './providers'
 import { ThemeToggle } from './components/theme-toggle'
+import { SafeArea } from './components/safe-area'
+import { SafariThemeHelper } from './components/safari-theme-helper'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -47,6 +49,22 @@ export const metadata: Metadata = {
     index: true,
     follow: true,
   },
+  // Status bar appearance for mobile devices
+  viewport: 'width=device-width, initial-scale=1, viewport-fit=cover',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'black-translucent',
+    title: siteConfig.name,
+  },
+  // Theme color for browser UI elements
+  themeColor: [
+    { media: '(prefers-color-scheme: light)', color: '#F9F9F9' },
+    { media: '(prefers-color-scheme: dark)', color: '#222' }
+  ],
+  other: {
+    'apple-mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-status-bar-style': 'black-translucent',
+  },
 }
 
 export default function RootLayout({
@@ -56,10 +74,21 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head />
+      <head>
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+        {/* Additional explicit theme-color meta tags for Safari desktop */}
+        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F9F9F9" />
+        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#222" />
+        {/* Safari specific navigation bar color */}
+        <meta name="supported-color-schemes" content="light dark" />
+      </head>
       <body>
         <Providers>
-          {children}
+          <SafariThemeHelper />
+          <SafeArea>
+            {children}
+          </SafeArea>
           <ThemeToggle />
         </Providers>
       </body>
