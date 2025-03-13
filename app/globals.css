@@ -616,7 +616,6 @@ a:hover {
   .prose, .back-link {
     width: 100%;
     max-width: 640px;
-    padding: 0 1rem;
   }
 
   .prose h1 {
