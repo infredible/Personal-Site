@@ -5,8 +5,13 @@
 @tailwind utilities;
 
 /* Prevent horizontal scrolling on the body but allow elements to extend beyond */
-html, body {
+html {
   overflow-x: hidden;
+  width: 100%;
+}
+
+body {
+  overflow-x: clip;
   position: relative;
   width: 100%;
 }
@@ -213,12 +218,14 @@ a:hover {
   animation: pageLoad 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   max-width: 520px;
   margin: 0 auto;
+  will-change: opacity, transform;
+  transform: translateZ(0);
 }
 
 .page-content.blog-content {
   gap: 12px;
-  overflow-x: visible;
   position: relative;
+  overflow: visible;
 }
 
 .content-description {
@@ -364,7 +371,7 @@ a:hover {
   width: 800px;
   max-width: 800px;
   border-radius: 8px;
-  margin: 2rem auto;
+  margin: 3rem auto;
   display: block;
   position: relative;
   left: 50%;
@@ -422,7 +429,7 @@ a:hover {
   width: 800px;
   max-width: 800px;
   border-radius: 8px;
-  margin: 2rem auto;
+  margin: 3rem auto;
   display: block;
   position: relative;
   left: 50%;
@@ -746,8 +753,8 @@ a:hover {
 /* Override the page-content constraints for images */
 .page-content.blog-content {
   gap: 12px;
-  overflow-x: visible;
   position: relative;
+  overflow: visible;
 }
 
 /* Create a wrapper for content to maintain alignment */
@@ -756,6 +763,7 @@ a:hover {
   width: 100%;
   max-width: 520px;
   margin: 0 auto;
+  overflow: visible;
 }
 
 /* Ensure the prose content stays properly bounded */
@@ -763,5 +771,5 @@ a:hover {
   max-width: 520px;
   position: relative;
   margin: 0 auto;
-  overflow-x: visible;
+  overflow: visible;
 }
