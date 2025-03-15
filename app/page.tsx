@@ -2,7 +2,9 @@ import { Metadata } from 'next'
 import { siteConfig } from './config/site'
 import { getAllPosts } from './lib/posts'
 import { getAllProjects } from './lib/projects'
+import { getAllPrototypes } from './lib/prototypes'
 import { ArrowUpRight } from 'lucide-react'
+import PrototypeStack from './components/PrototypeStack'
 
 export const metadata: Metadata = {
   title: siteConfig.title,
@@ -12,6 +14,7 @@ export const metadata: Metadata = {
 export default async function Home() {
   const posts = await getAllPosts()
   const projects = await getAllProjects()
+  const prototypes = await getAllPrototypes()
   
   return (
     <div className="page-content">
@@ -47,6 +50,17 @@ export default async function Home() {
         </div>
       </section>
 
+      {/* Prototypes Section */}
+      <section className="section">
+        <h2 className="section-title">Prototypes</h2>
+        <div className="section-content">
+          {prototypes.length > 0 ? (
+            <PrototypeStack prototypes={prototypes} />
+          ) : (
+            <p className="text-sm text-tertiary">No prototypes available yet.</p>
+          )}
+        </div>
+      </section>
 
       {/* Thoughts Section */}
       <section className="section">
