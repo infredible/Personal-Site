@@ -243,7 +243,7 @@ a:hover {
 }
 
 .section-title {
-  font-size: 20px;
+  font-size: 1.6rem;
   line-height: 1;
   font-family: 'Family', serif;
   font-weight: bold;
@@ -313,18 +313,18 @@ a:hover {
   margin-right: auto;
 }
 
-.prose p:last-of-type::after {
+.blog-content::after {
   content: "■";
   display: block;
   text-align: center;
   font-size: 1.5rem;
-  margin: 4rem 0 2rem;
+  margin: 2rem 0 2rem;
   color: var(--orange);
 }
 
 .prose h1 {
   font-size: 2.5rem;
-  margin: 1rem 0;
+  margin: 1rem 0 2rem;
   font-weight: bold;
 }
 
@@ -357,6 +357,15 @@ a:hover {
   border: 1px solid var(--border-secondary);
 }
 
+.prose ol {
+  padding-left: 2rem;
+}
+
+.prose li {
+  margin-bottom: 1rem;
+  line-height: 1.4;
+}
+
 .prose .time-period {
   color: var(--text-tertiary);
   padding: 0;
@@ -371,7 +380,7 @@ a:hover {
   width: 800px;
   max-width: 800px;
   border-radius: 8px;
-  margin: 3rem auto;
+  margin: 1rem auto;
   display: block;
   position: relative;
   left: 50%;
@@ -380,7 +389,7 @@ a:hover {
 
 /* Container for images with captions */
 .image-container {
-  margin: 2rem 0;
+  margin: 3rem 0;
   width: 800px;
   max-width: 800px;
   position: relative;
