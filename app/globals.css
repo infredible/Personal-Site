@@ -345,6 +345,7 @@ a:hover {
 .prose a {
   transition: all 80ms ease-in-out;
   color: var(--text-primary);
+  text-decoration: underline;
 }
 
 .prose a:hover {
