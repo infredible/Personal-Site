@@ -3,5 +3,5 @@ export const metadata = {
   description: "The evolution of the first token swapping interface",
   date: "Ongoing",
   company: "Uniswap Labs",
-  index: 2
+  index: 1
 } 

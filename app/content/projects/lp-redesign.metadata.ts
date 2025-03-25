@@ -3,5 +3,5 @@ export const metadata = {
   description: "Overhauling the LP experience and introducing v4",
   date: "2024 - 2025",
   company: "Uniswap Labs",
-  index: 1
+  index: 2
 } 
