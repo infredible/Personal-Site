@@ -345,7 +345,7 @@ a:hover {
 .prose a {
   transition: all 80ms ease-in-out;
   color: var(--text-primary);
-  text-decoration: underline;
+  border-bottom: 1px solid var(--text-tertiary);
 }
 
 .prose a:hover {
@@ -614,7 +614,6 @@ a:hover {
 
   .work-item {
     flex-direction: column;
-    gap: 8px;
   }
 
   .company-and-period {
