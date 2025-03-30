@@ -49,7 +49,7 @@ export default async function Home() {
               id: 'Permit2', 
               title: 'Permit2', 
               description: 'Permit2', 
-              videoUrl: '/projects/swap/permit2.mp4',
+              videoUrl: '/projects/swap/Permit2.mp4',
               objectFit: 'cover'
             },
             { 
