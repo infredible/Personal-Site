@@ -46,6 +46,13 @@ export default async function Home() {
               objectFit: 'cover'
             },
             { 
+              id: 'Permit2', 
+              title: 'Permit2', 
+              description: 'Permit2', 
+              videoUrl: '/projects/swap/permit2.mp4',
+              objectFit: 'cover'
+            },
+            { 
               id: 'Mini Charts', 
               title: 'Mini Charts', 
               description: 'Mini Charts', 
@@ -58,7 +65,7 @@ export default async function Home() {
               title: 'Trade Type Switcher', 
               description: 'Trade Type Switcher', 
               videoUrl: '/projects/swap/trade-type-switcher.mp4',
-              objectFit: 'cover'
+              objectFit: 'cover',
             },
             // { 
             //   id: 'proto4', 
@@ -117,12 +124,20 @@ export default async function Home() {
               objectFit: 'contain'
             },
             { 
+              id: 'Ebay Passions', 
+              title: 'Ebay Passions', 
+              description: 'Ebay Passions', 
+              videoUrl: '/projects/misc/ebay-passions.mp4',
+              objectFit: 'cover'
+            },
+            { 
               id: 'Matternet', 
               title: 'Matternet', 
               description: 'Matternet', 
               videoUrl: '/projects/misc/matternet.mp4',
               objectFit: 'contain'
             },
+
           ]} />
         </div>
       </section>

@@ -260,15 +260,18 @@ const styles = {
   },
   videoContainer: { 
     overflow: 'hidden', 
-    backgroundColor: '#000', // Dark background for letterboxing
     position: 'relative' as const,
     borderRadius: '24px',
+    transform: 'translateZ(0)', // Force GPU acceleration to fix border radius artifacts
+    border: '2px solid var(--border-primary)',
   },
   videoWrapper: {
     position: 'relative' as const,
     width: '100%',
     height: '100%',
     backgroundColor: '#000', // Ensure wrapper also has dark background
+    borderRadius: '24px', // Match parent border radius
+    overflow: 'hidden', // Ensure content doesn't overflow
   },
   videoElement: { 
     display: 'block',
