@@ -5,6 +5,7 @@ import { Providers } from './providers'
 import { ThemeToggle } from './components/theme-toggle'
 import { SafeArea } from './components/safe-area'
 import { SafariThemeHelper } from './components/safari-theme-helper'
+import { Analytics } from '@vercel/analytics/react'
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
@@ -90,6 +91,7 @@ export default function RootLayout({
             {children}
           </SafeArea>
           <ThemeToggle />
+          <Analytics />
         </Providers>
       </body>
     </html>
