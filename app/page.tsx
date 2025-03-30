@@ -2,6 +2,7 @@ import { Metadata } from 'next'
 import { siteConfig } from './config/site'
 import { getAllPosts } from './lib/posts'
 import { getAllProjects } from './lib/projects'
+import { getWeather } from './lib/weather'
 import { ArrowUpRight } from 'lucide-react'
 import PrototypeStories from './components/PrototypeStories'
 
@@ -13,12 +14,21 @@ export const metadata: Metadata = {
 export default async function Home() {
   const posts = await getAllPosts()
   const projects = await getAllProjects()
+  const weather = await getWeather()
+  
+  // Convert temperature from Celsius to Fahrenheit
+  const tempF = Math.round(weather.current.temperature_2m * 9/5 + 32)
   
   return (
     <div className="page-content">
       {/* Header/Bio Section */}
       <section className="section">
-        <h2 className="section-title">Fred Zaw</h2>
+        <div className="title-and-description" style={{ gap: '4px' }}>
+          <h2 className="section-title">Fred Zaw</h2>
+          <div className="company-and-period text-sm">
+              <div>Oakland, CA  •  {tempF}°</div>
+          </div>
+        </div>
         <p>
           Designer at Uniswap Labs unlocking a more free and open financial system. Before crypto, worked on a breadth of industries including AI and spatial computing.
         </p>
