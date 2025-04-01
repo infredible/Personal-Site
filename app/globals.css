@@ -333,7 +333,7 @@ a:visited {
   content: "■";
   display: block;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1rem;
   margin: 2rem 0 2rem;
   color: var(--orange);
 }
