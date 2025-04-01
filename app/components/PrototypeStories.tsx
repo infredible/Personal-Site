@@ -28,6 +28,20 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
   const UPDATE_INTERVAL = 100;
   const [showOverlays, setShowOverlays] = useState(false);
   const [hoveredSide, setHoveredSide] = useState<'left' | 'right' | null>(null);
+  const [supportsHover, setSupportsHover] = useState(false);
+
+  // Check if device supports hover
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(hover: hover)');
+    setSupportsHover(mediaQuery.matches);
+
+    const updateHoverSupport = (e: MediaQueryListEvent) => {
+      setSupportsHover(e.matches);
+    };
+
+    mediaQuery.addListener(updateHoverSupport);
+    return () => mediaQuery.removeListener(updateHoverSupport);
+  }, []);
 
   const goToNext = () => {
     setPreviousIndex(currentIndex);
@@ -56,12 +70,14 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
   };
 
   const handleMouseEnter = () => {
+    if (!supportsHover) return;
     isHovering.current = true;
     setShowOverlays(true);
     videoRef.current?.pause();
   };
 
   const handleMouseLeave = () => {
+    if (!supportsHover) return;
     isHovering.current = false;
     setShowOverlays(false);
     if (videoRef.current && videoRef.current.paused) {
@@ -86,11 +102,30 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
   }, []);
 
   const handleOverlayMouseEnter = (side: 'left' | 'right') => {
+    if (!supportsHover) return;
     setHoveredSide(side);
   };
 
   const handleOverlayMouseLeave = () => {
+    if (!supportsHover) return;
     setHoveredSide(null);
+  };
+
+  // Handle touch interactions for mobile
+  const handleTouch = (e: React.TouchEvent) => {
+    e.preventDefault(); // Prevent click event from firing
+    if (supportsHover) return;
+    
+    const container = e.currentTarget as HTMLDivElement;
+    const rect = container.getBoundingClientRect();
+    const x = e.touches[0].clientX;
+    const relativeX = x - rect.left;
+    
+    if (relativeX < rect.width / 3) {
+      goToPrevious();
+    } else {
+      goToNext();
+    }
   };
 
   // Handle video transitions
@@ -136,7 +171,8 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
       className="prototype-story-container" 
       onMouseEnter={handleMouseEnter} 
       onMouseLeave={handleMouseLeave}
-      style={{ position: 'relative' }}
+      onTouchStart={handleTouch}
+      style={{ position: 'relative', touchAction: 'none' }}
     >
       <div className="prototype-video-container" style={{ ...styles.videoContainer, aspectRatio: '16 / 9' }}>
         <div style={styles.progressBarsContainer}>
@@ -190,45 +226,55 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
           </video>
         </div>
 
-        {/* Navigation Overlays */}
-        <div 
-          onClick={handlePreviousClick}
-          onMouseEnter={() => handleOverlayMouseEnter('left')}
-          onMouseLeave={handleOverlayMouseLeave}
-          style={{
-            ...styles.navigationOverlay,
-            ...styles.prevOverlay,
-            opacity: showOverlays ? 1 : 0,
-          }}
-          aria-label="Previous story"
-        >
-          <div style={{
-            ...styles.arrowContainer,
-            transform: hoveredSide === 'left' ? 'translateX(-4px)' : 'translateX(0)',
-            transition: 'transform 0.2s ease-out',
-          }}>
-            <ChevronLeft size={32} color="white" strokeWidth={1.5} />
-          </div>
-        </div>
-        <div 
-          onClick={handleNextClick}
-          onMouseEnter={() => handleOverlayMouseEnter('right')}
-          onMouseLeave={handleOverlayMouseLeave}
-          style={{
-            ...styles.navigationOverlay,
-            ...styles.nextOverlay,
-            opacity: showOverlays ? 1 : 0,
-          }}
-          aria-label="Next story"
-        >
-          <div style={{
-            ...styles.arrowContainer,
-            transform: hoveredSide === 'right' ? 'translateX(4px)' : 'translateX(0)',
-            transition: 'transform 0.2s ease-out',
-          }}>
-            <ChevronRight size={32} color="white" strokeWidth={1.5} />
-          </div>
-        </div>
+        {/* Navigation Overlays - Only shown on hover-capable devices */}
+        {supportsHover && (
+          <>
+            <div 
+              onClick={(e) => {
+                e.stopPropagation();
+                goToPrevious();
+              }}
+              onMouseEnter={() => handleOverlayMouseEnter('left')}
+              onMouseLeave={handleOverlayMouseLeave}
+              style={{
+                ...styles.navigationOverlay,
+                ...styles.prevOverlay,
+                opacity: showOverlays ? 1 : 0,
+              }}
+              aria-label="Previous story"
+            >
+              <div style={{
+                ...styles.arrowContainer,
+                transform: hoveredSide === 'left' ? 'translateX(-4px)' : 'translateX(0)',
+                transition: 'transform 0.2s ease-out',
+              }}>
+                <ChevronLeft size={32} color="white" strokeWidth={1.5} />
+              </div>
+            </div>
+            <div 
+              onClick={(e) => {
+                e.stopPropagation();
+                goToNext();
+              }}
+              onMouseEnter={() => handleOverlayMouseEnter('right')}
+              onMouseLeave={handleOverlayMouseLeave}
+              style={{
+                ...styles.navigationOverlay,
+                ...styles.nextOverlay,
+                opacity: showOverlays ? 1 : 0,
+              }}
+              aria-label="Next story"
+            >
+              <div style={{
+                ...styles.arrowContainer,
+                transform: hoveredSide === 'right' ? 'translateX(4px)' : 'translateX(0)',
+                transition: 'transform 0.2s ease-out',
+              }}>
+                <ChevronRight size={32} color="white" strokeWidth={1.5} />
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
