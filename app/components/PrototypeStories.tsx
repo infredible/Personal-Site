@@ -251,13 +251,6 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
           ))}
         </div>
 
-        {/* Loading overlay */}
-        {isLoading && (
-          <div style={styles.loadingOverlay}>
-            <div style={styles.loadingSpinner} />
-          </div>
-        )}
-
         {/* Video layers for transition */}
         <div style={styles.videoWrapper}>
           {/* Previous video layer */}
@@ -269,7 +262,7 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
               style={{
                 ...styles.videoElement,
                 ...styles.absoluteVideo,
-                opacity: 0,
+                display: 'none',
                 objectFit: previousPrototype.objectFit || 'contain',
                 padding: previousPrototype.padding,
               }}
@@ -294,7 +287,6 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
             style={{
               ...styles.videoElement,
               ...styles.absoluteVideo,
-              opacity: 1,
               objectFit: currentPrototype.objectFit || 'contain',
               padding: currentPrototype.padding,
             }}
@@ -413,7 +405,6 @@ const styles = {
     position: 'absolute' as const,
     top: 0,
     left: 0,
-    transition: 'opacity 0.4s ease-in-out',
   },
   navigationOverlay: {
     position: 'absolute' as const,
@@ -443,32 +434,6 @@ const styles = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  loadingOverlay: {
-    position: 'absolute' as const,
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    zIndex: 3,
-  },
-  loadingSpinner: {
-    width: '48px',
-    height: '48px',
-    borderRadius: '50%',
-    border: '2px solid rgba(255, 255, 255, 0.2)',
-    borderTopColor: 'white',
-    animation: 'spin 1s linear infinite',
-  },
-  loadingText: {
-    color: 'white',
-    marginTop: '12px',
-    fontSize: '14px',
-    fontWeight: 500,
   },
 };
 
