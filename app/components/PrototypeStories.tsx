@@ -254,9 +254,7 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
         {/* Loading overlay */}
         {isLoading && (
           <div style={styles.loadingOverlay}>
-            <div style={styles.loadingSpinner}>
-              <div style={styles.loadingBar} />
-            </div>
+            <div style={styles.loadingSpinner} />
           </div>
         )}
 
@@ -454,7 +452,6 @@ const styles = {
     bottom: 0,
     backgroundColor: 'rgba(0, 0, 0, 0.7)',
     display: 'flex',
-    flexDirection: 'column' as const,
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 3,
@@ -472,14 +469,6 @@ const styles = {
     marginTop: '12px',
     fontSize: '14px',
     fontWeight: 500,
-  },
-  loadingBar: {
-    width: '100%',
-    height: '100%',
-    borderRadius: '50%',
-    border: '2px solid transparent',
-    borderTopColor: 'white',
-    animation: 'spin 1s linear infinite',
   },
 };
 
