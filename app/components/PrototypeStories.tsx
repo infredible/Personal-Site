@@ -21,8 +21,12 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
   const [previousIndex, setPreviousIndex] = useState(-1);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [videoProgress, setVideoProgress] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingProgress, setLoadingProgress] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const previousVideoRef = useRef<HTMLVideoElement>(null);
+  const nextVideoRef = useRef<HTMLVideoElement>(null);
+  const loadingTimeoutRef = useRef<NodeJS.Timeout>();
   const isHovering = useRef(false);
   const lastUpdateTime = useRef(0);
   const UPDATE_INTERVAL = 100;
@@ -42,6 +46,70 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
     mediaQuery.addListener(updateHoverSupport);
     return () => mediaQuery.removeListener(updateHoverSupport);
   }, []);
+
+  // Preload next video
+  useEffect(() => {
+    const nextIndex = (currentIndex + 1) % prototypes.length;
+    if (nextVideoRef.current) {
+      nextVideoRef.current.src = prototypes[nextIndex].videoUrl;
+      nextVideoRef.current.load();
+    }
+  }, [currentIndex, prototypes]);
+
+  const handleVideoLoadStart = () => {
+    // Clear any existing timeout
+    if (loadingTimeoutRef.current) {
+      clearTimeout(loadingTimeoutRef.current);
+    }
+    
+    // Only show loading state if video takes more than 100ms to start playing
+    loadingTimeoutRef.current = setTimeout(() => {
+      const video = videoRef.current;
+      if (video && (video.readyState < 3 || video.networkState === video.NETWORK_LOADING)) {
+        setIsLoading(true);
+        setLoadingProgress(0);
+      }
+    }, 100);
+  };
+
+  const handleVideoProgress = (e: ProgressEvent) => {
+    if (e.lengthComputable) {
+      const progress = (e.loaded / e.total) * 100;
+      setLoadingProgress(progress);
+    }
+  };
+
+  const handleVideoCanPlay = () => {
+    // Clear loading timeout if it exists
+    if (loadingTimeoutRef.current) {
+      clearTimeout(loadingTimeoutRef.current);
+    }
+    setIsLoading(false);
+  };
+
+  // Add readyState check on mount and video change
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // If video is already loaded enough, don't show loading state
+    if (video.readyState >= 3) {
+      setIsLoading(false);
+    }
+
+    // Add loadeddata event listener
+    const handleLoadedData = () => {
+      if (loadingTimeoutRef.current) {
+        clearTimeout(loadingTimeoutRef.current);
+      }
+      setIsLoading(false);
+    };
+
+    video.addEventListener('loadeddata', handleLoadedData);
+    return () => {
+      video.removeEventListener('loadeddata', handleLoadedData);
+    };
+  }, [currentIndex]); // Re-run when video changes
 
   const goToNext = () => {
     setPreviousIndex(currentIndex);
@@ -183,6 +251,15 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
           ))}
         </div>
 
+        {/* Loading overlay */}
+        {isLoading && (
+          <div style={styles.loadingOverlay}>
+            <div style={styles.loadingSpinner}>
+              <div style={styles.loadingBar} />
+            </div>
+          </div>
+        )}
+
         {/* Video layers for transition */}
         <div style={styles.videoWrapper}>
           {/* Previous video layer */}
@@ -213,6 +290,9 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
             playsInline
             onEnded={handleEnded}
             onTimeUpdate={handleTimeUpdate}
+            onLoadStart={handleVideoLoadStart}
+            onProgress={(e) => handleVideoProgress(e as any)}
+            onCanPlay={handleVideoCanPlay}
             style={{
               ...styles.videoElement,
               ...styles.absoluteVideo,
@@ -224,6 +304,14 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
           >
             Your browser does not support the video tag.
           </video>
+
+          {/* Hidden next video for preloading */}
+          <video
+            ref={nextVideoRef}
+            style={{ display: 'none' }}
+            muted
+            playsInline
+          />
         </div>
 
         {/* Navigation Overlays - Only shown on hover-capable devices */}
@@ -302,7 +390,6 @@ const styles = {
     height: '100%',
     backgroundColor: 'rgba(255, 255, 255, 0.5)',
     borderRadius: '1px',
-    // Remove default transition - we'll control this via getProgressBarStyle
   },
   videoContainer: { 
     overflow: 'hidden', 
@@ -359,6 +446,52 @@ const styles = {
     alignItems: 'center',
     justifyContent: 'center',
   },
+  loadingOverlay: {
+    position: 'absolute' as const,
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    display: 'flex',
+    flexDirection: 'column' as const,
+    alignItems: 'center',
+    justifyContent: 'center',
+    zIndex: 3,
+  },
+  loadingSpinner: {
+    width: '48px',
+    height: '48px',
+    borderRadius: '50%',
+    border: '2px solid rgba(255, 255, 255, 0.2)',
+    borderTopColor: 'white',
+    animation: 'spin 1s linear infinite',
+  },
+  loadingText: {
+    color: 'white',
+    marginTop: '12px',
+    fontSize: '14px',
+    fontWeight: 500,
+  },
+  loadingBar: {
+    width: '100%',
+    height: '100%',
+    borderRadius: '50%',
+    border: '2px solid transparent',
+    borderTopColor: 'white',
+    animation: 'spin 1s linear infinite',
+  },
 };
+
+// Add keyframes for loading spinner
+const styleSheet = document.createElement('style');
+styleSheet.textContent = `
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+`;
+document.head.appendChild(styleSheet);
 
 export default PrototypeStories; 
