@@ -285,8 +285,8 @@ const styles = {
   progressBarsContainer: {
     position: 'absolute' as const,
     top: '12px',
-    left: '12px',
-    right: '12px',
+    left: '24px',
+    right: '24px',
     display: 'flex',
     gap: '4px',
     zIndex: 2,
