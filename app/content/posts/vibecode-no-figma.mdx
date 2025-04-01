@@ -6,6 +6,18 @@ But first off, maybe I should share why I wanted to do this. As many Figma conno
 
 And if I could design entirely in code, then why bother with Figma at all? With these small features we were working on, I felt they were a good opportunity to experiment.
 
+{/* Video with caption */}
+<div className="video-container">
+  <video 
+    src="/posts/dynamic-swap-web.mp4" 
+    playsInline
+    autoPlay
+    muted
+    loop
+  ></video>
+  <p className="video-caption">A prototype a vibecoded for a small-ish swap improvement</p>
+</div>
+
 ## A lil prototyping environment
 
 I’d found myself wrestling with our production environment quite a bit and didn’t find it to be optimal for prototyping in. Dealing with errors and navigating the codebase was not the business.
@@ -21,6 +33,15 @@ For data, I often find myself generating mock data to start and when needed, usi
 My Cursor setup is pretty basic. My rules just include [Rauno’s Web Interface Guidelines](https://github.com/raunofreiberg/interfaces) to get nice typography, motion, and more “for free”. 
 
 I was rebuilding our components as needed. First on each prototype page, but will “graduate” to a more shareable component if being used across different prototypes. However, foolishly, I didn’t set up isolated styles within components. So as my project grew with more and more prototypes, I had more and more conflicting classes I had to mitigate with more and more specific classnames. More on this later…
+{/* Image with caption */}
+<div className="image-container">
+  <img 
+    src="/posts/proto-env.png" 
+    alt="Prototype Environment" 
+    className="project-image"
+  />
+  <p className="image-caption">Homepage of my prototype environment app</p>
+</div>
 
 ## Handoff
 
