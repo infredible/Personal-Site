@@ -180,8 +180,10 @@ a:visited {
   color: var(--text-primary);
 }
 
-a:hover {
-  border-bottom: 1px solid;
+@media (hover: hover) {
+  a:hover {
+    border-bottom: 1px solid;
+  }
 }
 
 .back-link {
@@ -197,8 +199,10 @@ a:hover {
   border-bottom: none;
 }
 
-.back-link a:hover {
-  color: var(--text-tertiary);
+@media (hover: hover) {
+  .back-link a:hover {
+    color: var(--text-tertiary);
+  }
 }
 
 .button-group {
@@ -278,10 +282,12 @@ a:hover {
   border-bottom: 1px solid transparent;
 }
 
-.work-item:hover {
-  opacity: 0.5;
-  cursor: pointer;
-  border-bottom: 1px solid transparent;
+@media (hover: hover) {
+  .work-item:hover {
+    opacity: 0.5;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+  }
 }
 
 .work-item.disabled-item {
@@ -358,9 +364,11 @@ a:hover {
   border-bottom: 1px solid var(--text-tertiary);
 }
 
-.prose a:hover {
-  text-decoration: none;
-  opacity: 0.5;
+@media (hover: hover) {
+  .prose a:hover {
+    text-decoration: none;
+    opacity: 0.5;
+  }
 }
 
 .prose hr {
@@ -536,8 +544,10 @@ a:hover {
   max-width: fit-content !important;
 }
 
-.theme-toggle:hover {
-  opacity: 1;
+@media (hover: hover) {
+  .theme-toggle:hover {
+    opacity: 1;
+  }
 }
 
 .segmented-control {
@@ -576,8 +586,10 @@ a:hover {
   cursor: pointer;
 }
 
-.segmented-control .segment:hover:not(.active) {
-  color: var(--text-primary);
+@media (hover: hover) {
+  .segmented-control .segment:hover:not(.active) {
+    color: var(--text-primary);
+  }
 }
 
 .segmented-control .segment.active {
@@ -731,8 +743,10 @@ a:hover {
   transition: transform 0.2s ease-in-out;
 }
 
-.mdx-image:hover {
-  transform: scale(1.01);
+@media (hover: hover) {
+  .mdx-image:hover {
+    transform: scale(1.01);
+  }
 }
 
 /* Additional MDX image styles */
