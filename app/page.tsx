@@ -140,13 +140,13 @@ export default async function Home() {
               videoUrl: '/projects/misc/ebay-passions.mp4',
               objectFit: 'cover'
             },
-            { 
-              id: 'Matternet', 
-              title: 'Matternet', 
-              description: 'Matternet', 
-              videoUrl: '/projects/misc/matternet.mp4',
-              objectFit: 'contain'
-            },
+            // { 
+            //   id: 'Matternet', 
+            //   title: 'Matternet', 
+            //   description: 'Matternet', 
+            //   videoUrl: '/projects/misc/matternet.mp4',
+            //   objectFit: 'contain'
+            // },
 
           ]} />
         </div>

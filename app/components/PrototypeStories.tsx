@@ -21,13 +21,95 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
   const [previousIndex, setPreviousIndex] = useState(-1);
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [videoProgress, setVideoProgress] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
+  const [loadingProgress, setLoadingProgress] = useState(0);
   const videoRef = useRef<HTMLVideoElement>(null);
   const previousVideoRef = useRef<HTMLVideoElement>(null);
+  const nextVideoRef = useRef<HTMLVideoElement>(null);
+  const loadingTimeoutRef = useRef<NodeJS.Timeout>();
   const isHovering = useRef(false);
   const lastUpdateTime = useRef(0);
   const UPDATE_INTERVAL = 100;
   const [showOverlays, setShowOverlays] = useState(false);
   const [hoveredSide, setHoveredSide] = useState<'left' | 'right' | null>(null);
+  const [supportsHover, setSupportsHover] = useState(false);
+
+  // Check if device supports hover
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(hover: hover)');
+    setSupportsHover(mediaQuery.matches);
+
+    const updateHoverSupport = (e: MediaQueryListEvent) => {
+      setSupportsHover(e.matches);
+    };
+
+    mediaQuery.addListener(updateHoverSupport);
+    return () => mediaQuery.removeListener(updateHoverSupport);
+  }, []);
+
+  // Preload next video
+  useEffect(() => {
+    const nextIndex = (currentIndex + 1) % prototypes.length;
+    if (nextVideoRef.current) {
+      nextVideoRef.current.src = prototypes[nextIndex].videoUrl;
+      nextVideoRef.current.load();
+    }
+  }, [currentIndex, prototypes]);
+
+  const handleVideoLoadStart = () => {
+    // Clear any existing timeout
+    if (loadingTimeoutRef.current) {
+      clearTimeout(loadingTimeoutRef.current);
+    }
+    
+    // Only show loading state if video takes more than 100ms to start playing
+    loadingTimeoutRef.current = setTimeout(() => {
+      const video = videoRef.current;
+      if (video && (video.readyState < 3 || video.networkState === video.NETWORK_LOADING)) {
+        setIsLoading(true);
+        setLoadingProgress(0);
+      }
+    }, 100);
+  };
+
+  const handleVideoProgress = (e: ProgressEvent) => {
+    if (e.lengthComputable) {
+      const progress = (e.loaded / e.total) * 100;
+      setLoadingProgress(progress);
+    }
+  };
+
+  const handleVideoCanPlay = () => {
+    // Clear loading timeout if it exists
+    if (loadingTimeoutRef.current) {
+      clearTimeout(loadingTimeoutRef.current);
+    }
+    setIsLoading(false);
+  };
+
+  // Add readyState check on mount and video change
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+
+    // If video is already loaded enough, don't show loading state
+    if (video.readyState >= 3) {
+      setIsLoading(false);
+    }
+
+    // Add loadeddata event listener
+    const handleLoadedData = () => {
+      if (loadingTimeoutRef.current) {
+        clearTimeout(loadingTimeoutRef.current);
+      }
+      setIsLoading(false);
+    };
+
+    video.addEventListener('loadeddata', handleLoadedData);
+    return () => {
+      video.removeEventListener('loadeddata', handleLoadedData);
+    };
+  }, [currentIndex]); // Re-run when video changes
 
   const goToNext = () => {
     setPreviousIndex(currentIndex);
@@ -56,12 +138,14 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
   };
 
   const handleMouseEnter = () => {
+    if (!supportsHover) return;
     isHovering.current = true;
     setShowOverlays(true);
     videoRef.current?.pause();
   };
 
   const handleMouseLeave = () => {
+    if (!supportsHover) return;
     isHovering.current = false;
     setShowOverlays(false);
     if (videoRef.current && videoRef.current.paused) {
@@ -86,11 +170,30 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
   }, []);
 
   const handleOverlayMouseEnter = (side: 'left' | 'right') => {
+    if (!supportsHover) return;
     setHoveredSide(side);
   };
 
   const handleOverlayMouseLeave = () => {
+    if (!supportsHover) return;
     setHoveredSide(null);
+  };
+
+  // Handle touch interactions for mobile
+  const handleTouch = (e: React.TouchEvent) => {
+    e.preventDefault(); // Prevent click event from firing
+    if (supportsHover) return;
+    
+    const container = e.currentTarget as HTMLDivElement;
+    const rect = container.getBoundingClientRect();
+    const x = e.touches[0].clientX;
+    const relativeX = x - rect.left;
+    
+    if (relativeX < rect.width / 3) {
+      goToPrevious();
+    } else {
+      goToNext();
+    }
   };
 
   // Handle video transitions
@@ -136,7 +239,8 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
       className="prototype-story-container" 
       onMouseEnter={handleMouseEnter} 
       onMouseLeave={handleMouseLeave}
-      style={{ position: 'relative' }}
+      onTouchStart={handleTouch}
+      style={{ position: 'relative', touchAction: 'none' }}
     >
       <div className="prototype-video-container" style={{ ...styles.videoContainer, aspectRatio: '16 / 9' }}>
         <div style={styles.progressBarsContainer}>
@@ -158,7 +262,7 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
               style={{
                 ...styles.videoElement,
                 ...styles.absoluteVideo,
-                opacity: 0,
+                display: 'none',
                 objectFit: previousPrototype.objectFit || 'contain',
                 padding: previousPrototype.padding,
               }}
@@ -177,10 +281,12 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
             playsInline
             onEnded={handleEnded}
             onTimeUpdate={handleTimeUpdate}
+            onLoadStart={handleVideoLoadStart}
+            onProgress={(e) => handleVideoProgress(e as any)}
+            onCanPlay={handleVideoCanPlay}
             style={{
               ...styles.videoElement,
               ...styles.absoluteVideo,
-              opacity: 1,
               objectFit: currentPrototype.objectFit || 'contain',
               padding: currentPrototype.padding,
             }}
@@ -188,47 +294,65 @@ const PrototypeStories: React.FC<PrototypeStoriesProps> = ({ prototypes }) => {
           >
             Your browser does not support the video tag.
           </video>
+
+          {/* Hidden next video for preloading */}
+          <video
+            ref={nextVideoRef}
+            style={{ display: 'none' }}
+            muted
+            playsInline
+          />
         </div>
 
-        {/* Navigation Overlays */}
-        <div 
-          onClick={handlePreviousClick}
-          onMouseEnter={() => handleOverlayMouseEnter('left')}
-          onMouseLeave={handleOverlayMouseLeave}
-          style={{
-            ...styles.navigationOverlay,
-            ...styles.prevOverlay,
-            opacity: showOverlays ? 1 : 0,
-          }}
-          aria-label="Previous story"
-        >
-          <div style={{
-            ...styles.arrowContainer,
-            transform: hoveredSide === 'left' ? 'translateX(-4px)' : 'translateX(0)',
-            transition: 'transform 0.2s ease-out',
-          }}>
-            <ChevronLeft size={32} color="white" strokeWidth={1.5} />
-          </div>
-        </div>
-        <div 
-          onClick={handleNextClick}
-          onMouseEnter={() => handleOverlayMouseEnter('right')}
-          onMouseLeave={handleOverlayMouseLeave}
-          style={{
-            ...styles.navigationOverlay,
-            ...styles.nextOverlay,
-            opacity: showOverlays ? 1 : 0,
-          }}
-          aria-label="Next story"
-        >
-          <div style={{
-            ...styles.arrowContainer,
-            transform: hoveredSide === 'right' ? 'translateX(4px)' : 'translateX(0)',
-            transition: 'transform 0.2s ease-out',
-          }}>
-            <ChevronRight size={32} color="white" strokeWidth={1.5} />
-          </div>
-        </div>
+        {/* Navigation Overlays - Only shown on hover-capable devices */}
+        {supportsHover && (
+          <>
+            <div 
+              onClick={(e) => {
+                e.stopPropagation();
+                goToPrevious();
+              }}
+              onMouseEnter={() => handleOverlayMouseEnter('left')}
+              onMouseLeave={handleOverlayMouseLeave}
+              style={{
+                ...styles.navigationOverlay,
+                ...styles.prevOverlay,
+                opacity: showOverlays ? 1 : 0,
+              }}
+              aria-label="Previous story"
+            >
+              <div style={{
+                ...styles.arrowContainer,
+                transform: hoveredSide === 'left' ? 'translateX(-4px)' : 'translateX(0)',
+                transition: 'transform 0.2s ease-out',
+              }}>
+                <ChevronLeft size={32} color="white" strokeWidth={1.5} />
+              </div>
+            </div>
+            <div 
+              onClick={(e) => {
+                e.stopPropagation();
+                goToNext();
+              }}
+              onMouseEnter={() => handleOverlayMouseEnter('right')}
+              onMouseLeave={handleOverlayMouseLeave}
+              style={{
+                ...styles.navigationOverlay,
+                ...styles.nextOverlay,
+                opacity: showOverlays ? 1 : 0,
+              }}
+              aria-label="Next story"
+            >
+              <div style={{
+                ...styles.arrowContainer,
+                transform: hoveredSide === 'right' ? 'translateX(4px)' : 'translateX(0)',
+                transition: 'transform 0.2s ease-out',
+              }}>
+                <ChevronRight size={32} color="white" strokeWidth={1.5} />
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
@@ -239,8 +363,8 @@ const styles = {
   progressBarsContainer: {
     position: 'absolute' as const,
     top: '12px',
-    left: '12px',
-    right: '12px',
+    left: '24px',
+    right: '24px',
     display: 'flex',
     gap: '4px',
     zIndex: 2,
@@ -256,7 +380,6 @@ const styles = {
     height: '100%',
     backgroundColor: 'rgba(255, 255, 255, 0.5)',
     borderRadius: '1px',
-    // Remove default transition - we'll control this via getProgressBarStyle
   },
   videoContainer: { 
     overflow: 'hidden', 
@@ -282,7 +405,6 @@ const styles = {
     position: 'absolute' as const,
     top: 0,
     left: 0,
-    transition: 'opacity 0.4s ease-in-out',
   },
   navigationOverlay: {
     position: 'absolute' as const,

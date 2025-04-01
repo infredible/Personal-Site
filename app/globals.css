@@ -180,8 +180,10 @@ a:visited {
   color: var(--text-primary);
 }
 
-a:hover {
-  border-bottom: 1px solid;
+@media (hover: hover) {
+  a:hover {
+    border-bottom: 1px solid;
+  }
 }
 
 .back-link {
@@ -197,8 +199,10 @@ a:hover {
   border-bottom: none;
 }
 
-.back-link a:hover {
-  color: var(--text-tertiary);
+@media (hover: hover) {
+  .back-link a:hover {
+    color: var(--text-tertiary);
+  }
 }
 
 .button-group {
@@ -278,10 +282,12 @@ a:hover {
   border-bottom: 1px solid transparent;
 }
 
-.work-item:hover {
-  opacity: 0.5;
-  cursor: pointer;
-  border-bottom: 1px solid transparent;
+@media (hover: hover) {
+  .work-item:hover {
+    opacity: 0.5;
+    cursor: pointer;
+    border-bottom: 1px solid transparent;
+  }
 }
 
 .work-item.disabled-item {
@@ -327,7 +333,7 @@ a:hover {
   content: "■";
   display: block;
   text-align: center;
-  font-size: 1.5rem;
+  font-size: 1rem;
   margin: 2rem 0 2rem;
   color: var(--orange);
 }
@@ -358,9 +364,11 @@ a:hover {
   border-bottom: 1px solid var(--text-tertiary);
 }
 
-.prose a:hover {
-  text-decoration: none;
-  opacity: 0.5;
+@media (hover: hover) {
+  .prose a:hover {
+    text-decoration: none;
+    opacity: 0.5;
+  }
 }
 
 .prose hr {
@@ -517,7 +525,6 @@ a:hover {
   font-family: 'UntitledSans', sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  opacity: 0.85;
   transition: opacity 200ms ease-out;
   display: block;
   width: auto;
@@ -536,8 +543,10 @@ a:hover {
   max-width: fit-content !important;
 }
 
-.theme-toggle:hover {
-  opacity: 1;
+@media (hover: hover) {
+  .theme-toggle:hover {
+    opacity: 1;
+  }
 }
 
 .segmented-control {
@@ -576,8 +585,10 @@ a:hover {
   cursor: pointer;
 }
 
-.segmented-control .segment:hover:not(.active) {
-  color: var(--text-primary);
+@media (hover: hover) {
+  .segmented-control .segment:hover:not(.active) {
+    color: var(--text-primary);
+  }
 }
 
 .segmented-control .segment.active {
@@ -585,11 +596,13 @@ a:hover {
   color: var(--text-primary);
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
   border: 1px solid var(--border-primary);
+  opacity: 1;
 
 }
 
 .dark .segmented-control .segment.active {
   box-shadow: 0 1px 2px rgba(0, 0, 0, 0.15);
+  border: 1px solid var(--border-primary);
 }
 
 .segmented-control .segment svg {
@@ -606,6 +619,12 @@ a:hover {
   100% {
     opacity: 1;
     transform: translateY(0);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
   }
 }
 
@@ -731,8 +750,10 @@ a:hover {
   transition: transform 0.2s ease-in-out;
 }
 
-.mdx-image:hover {
-  transform: scale(1.01);
+@media (hover: hover) {
+  .mdx-image:hover {
+    transform: scale(1.01);
+  }
 }
 
 /* Additional MDX image styles */

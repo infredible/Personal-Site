@@ -1,71 +1,18 @@
-import { Metadata } from 'next'
-import { siteConfig } from './config/site'
+import type { Metadata } from 'next'
 import './globals.css'
 import { Providers } from './providers'
-import { ThemeToggle } from './components/theme-toggle'
 import { SafeArea } from './components/safe-area'
+import { ThemeToggle } from './components/theme-toggle'
 import { SafariThemeHelper } from './components/safari-theme-helper'
 import { Analytics } from '@vercel/analytics/react'
 
 export const metadata: Metadata = {
-  metadataBase: new URL(siteConfig.url),
   title: {
-    default: siteConfig.title,
-    template: `%s | ${siteConfig.name}`,
+    template: '%s | Fred Zaw',
+    default: 'Fred Zaw',
   },
-  description: siteConfig.description,
-  openGraph: {
-    title: siteConfig.title,
-    description: siteConfig.description,
-    url: siteConfig.url,
-    siteName: siteConfig.name,
-    locale: 'en-US',
-    type: 'website',
-  },
-  twitter: {
-    card: 'summary_large_image',
-    title: siteConfig.title,
-    description: siteConfig.description,
-    creator: '@fredzaw',
-  },
-  icons: {
-    icon: [
-      { url: '/favicon.ico' },
-      { url: '/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
-      { url: '/favicon-32x32.png', sizes: '32x32', type: 'image/png' }
-    ],
-    shortcut: [{ url: '/favicon.ico' }],
-    apple: [
-      { url: '/apple-touch-icon.png' }
-    ],
-    other: [
-      {
-        rel: 'manifest',
-        url: '/site.webmanifest',
-      },
-    ],
-  },
-  manifest: '/site.webmanifest',
-  robots: {
-    index: true,
-    follow: true,
-  },
-  // Status bar appearance for mobile devices
-  viewport: 'width=device-width, initial-scale=1, viewport-fit=cover',
-  appleWebApp: {
-    capable: true,
-    statusBarStyle: 'black-translucent',
-    title: siteConfig.name,
-  },
-  // Theme color for browser UI elements
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#F9F9F9' },
-    { media: '(prefers-color-scheme: dark)', color: '#222' }
-  ],
-  other: {
-    'apple-mobile-web-app-capable': 'yes',
-    'apple-mobile-web-app-status-bar-style': 'black-translucent',
-  },
+  description: 'Designer at Uniswap Labs',
+  metadataBase: new URL('https://fredzaw.com'),
 }
 
 export default function RootLayout({
@@ -74,15 +21,21 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="en">
       <head>
-        <meta name="apple-mobile-web-app-capable" content="yes" />
-        <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-        {/* Additional explicit theme-color meta tags for Safari desktop */}
-        <meta name="theme-color" media="(prefers-color-scheme: light)" content="#F9F9F9" />
-        <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#222" />
         {/* Safari specific navigation bar color */}
         <meta name="supported-color-schemes" content="light dark" />
+        
+        {/* Add preconnect hints for video loading */}
+        <link rel="preconnect" href="/" />
+        <link rel="preconnect" href="/projects" />
+        <link rel="dns-prefetch" href="/" />
+        <link rel="dns-prefetch" href="/projects" />
+        
+        {/* Add resource hints for common video paths */}
+        <link rel="preload" href="/projects/swap" as="fetch" crossOrigin="anonymous" />
+        <link rel="preload" href="/projects/misc" as="fetch" crossOrigin="anonymous" />
+        <link rel="preload" href="/projects/tiktok" as="fetch" crossOrigin="anonymous" />
       </head>
       <body>
         <Providers>
