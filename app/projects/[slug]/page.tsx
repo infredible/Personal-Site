@@ -14,12 +14,16 @@ export async function generateMetadata({ params }: { params: { slug: string } })
       throw new Error('NEXT_PUBLIC_APP_URL is not set')
     }
 
-    const ogUrl = new URL('/api/og', baseUrl)
-    ogUrl.searchParams.set('title', metadata.title)
-    ogUrl.searchParams.set('date', metadata.date)
+    // Use custom OG image if provided, otherwise generate one
+    const ogImage = metadata.ogImage 
+      ? new URL(metadata.ogImage, baseUrl).toString()
+      : (() => {
+          const ogUrl = new URL('/api/og', baseUrl)
+          ogUrl.searchParams.set('title', metadata.title)
+          ogUrl.searchParams.set('date', metadata.date)
+          return ogUrl.toString()
+        })()
     
-    const ogImage = ogUrl.toString()
-
     return {
       title: metadata.title,
       description: metadata.description,
@@ -41,7 +45,13 @@ export async function generateMetadata({ params }: { params: { slug: string } })
         title: metadata.title,
         description: metadata.description,
         creator: '@fredzaw',
-        images: [ogImage],
+        site: '@fredzaw',
+        images: [{
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: metadata.title,
+        }],
       },
     }
   } catch (error) {
