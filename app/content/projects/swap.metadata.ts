@@ -3,5 +3,6 @@ export const metadata = {
   description: "The evolution of the first token swapping interface",
   date: "Ongoing",
   company: "Uniswap Labs",
-  index: 1
+  index: 1,
+  ogImage: "/projects/swap/swap-hero.png"
 } 
