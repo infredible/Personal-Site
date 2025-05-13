@@ -329,6 +329,40 @@ a:visited {
   margin-right: auto;
 }
 
+/* Pullquote styling */
+.prose blockquote {
+  border-left: 4px solid var(--border-primary);
+  margin: 2rem auto;
+  max-width: 720px;
+  padding: 0;
+  position: relative;
+  width: 100%;
+}
+
+.prose blockquote p {
+  padding: 0 1rem;
+  position: relative;
+}
+
+.prose blockquote p::before,
+.prose blockquote p::after {
+  color: var(--text-tertiary);
+  font-size: 2.5rem;
+  line-height: 0;
+  position: absolute;
+}
+
+@media (max-width: 768px) {
+  .prose blockquote {
+    font-size: 1.25rem;
+    margin: 2rem auto;
+  }
+  
+  .prose blockquote p {
+    padding: 0 1.5rem;
+  }
+}
+
 .blog-content::after {
   content: "■";
   display: block;
@@ -383,7 +417,7 @@ a:visited {
 
 .prose li {
   margin-bottom: 1rem;
-  line-height: 1.4;
+  line-height: 1.6;
 }
 
 .prose .time-period {
