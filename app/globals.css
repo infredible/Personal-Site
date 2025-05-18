@@ -308,6 +308,9 @@ a:visited {
   gap: 12px;
   text-align: left;
   color: var(--text-tertiary);
+  display: flex;
+  align-items: center;
+  gap: 4px;
 }
 
 .time-period {
