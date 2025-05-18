@@ -5,6 +5,7 @@ import { getAllProjects } from './lib/projects'
 import { getWeather } from './lib/weather'
 import { ArrowUpRight } from 'lucide-react'
 import PrototypeStories from './components/PrototypeStories'
+import Image from 'next/image'
 
 export const metadata: Metadata = {
   title: siteConfig.title,
@@ -18,6 +19,18 @@ export default async function Home() {
   
   // Convert temperature from Celsius to Fahrenheit
   const tempF = Math.round(weather.current.temperature_2m * 9/5 + 32)
+  
+  // Helper function to get the company icon
+  const getCompanyIcon = (company: string | undefined) => {
+    if (!company) return null;
+    
+    if (company.includes('Uniswap')) {
+      return '/icons/Uniswap.png';
+    } else if (company.includes('TikTok')) {
+      return '/icons/TikTok.png';
+    }
+    return null;
+  };
   
   return (
     <div className="page-content">
@@ -168,7 +181,22 @@ export default async function Home() {
                 <p>{project.description}</p>
               </div>
               <div className="company-and-period text-sm">
-                  <div>{project.company && <span>{project.company}</span>}</div>
+                  <div className="flex items-center space-x-2" style={{ display: 'flex', alignItems: 'center'}}>
+                    {project.company && (
+                      <>
+                        {getCompanyIcon(project.company) && (
+                          <Image 
+                            src={getCompanyIcon(project.company)!}
+                            alt={`${project.company} logo`}
+                            width={14}
+                            height={14}
+                            style={{ display: 'inline-block', marginRight: '6px' , borderRadius: '4px', padding: '2px 0'}}
+                          />
+                        )}
+                        <span>{project.company}</span>
+                      </>
+                    )}
+                  </div>
                   <div>{project.date}</div>
               </div>
             </a>
